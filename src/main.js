@@ -18,21 +18,29 @@ const router = createRouter({
     ]
 });
 
+
 var myHeaders = new Headers();
 myHeaders.append("X-Api-Key", "3s8K-HjLw1vBgI2nelJFMWbcQ6upXDYm");
 
 var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
+ method: 'GET',
+  headers: myHeaders,
+ redirect: 'follow'
 };
 
 fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
- .then(response => response.text())
- .then(result => console.log(result))
- .catch(error => console.log('error', error));
+                .then(response => response.json())
+                .then(result => console.log(result[0].constructionYear)) //RESULT
+                .catch(error => console.log('error', error))
+
+                
+
+
 
 createApp(App)
   .use(router)
   .mount('#app')
+  
+
+
 
