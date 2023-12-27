@@ -10,7 +10,7 @@ import About from './components/about.vue'
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/home', component: Home },
+        { path: '/houses', component: Home },
         { path: '/about', component: About },
     ]
 });
