@@ -1,8 +1,8 @@
 <template> 
 
     <!--NAVIGATION-->
-    <router-link to="/houses">Houses</router-link> <br>
-    <router-link to="/about">about</router-link> 
+    <router-link to="/houses" @click="housesClick" :class="{housesIsActive}"> Houses</router-link> <br>
+    <router-link to="/about" @click="navClick" :class="{navIsActive}">about</router-link> 
    
 
     <!-- PAGE CONTENT-->
@@ -16,15 +16,19 @@
     name: 'App',
     data(){
         return{
-            books: [
-                {title: 'The Hunger Games' , author: 'Susanne Collins', img: 'img/bingus.png', isFav: true},
-                {title: 'Catching Fire', author: 'Susanne Collins', img: 'img/cat.jpg', isFav: false},
-                {title: 'Mockingjay', author: 'Susanne Collins', img: 'img/cat2.jpg', isFav: true}
-            ],
+            housesIsActive: true,
+            navIsActive: false
         }
     },
     methods:{
-       
+       housesClick(){
+            this.housesIsActive = true,
+            this.navIsActive = false
+       },
+       navClick(){
+            this.navIsActive = true,
+            this.housesIsActive = false
+       }
     }
 }
 </script>

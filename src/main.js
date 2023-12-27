@@ -6,14 +6,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 
 
-import Home from './components/home.vue'
+import Houses from './components/houses.vue'
 import About from './components/about.vue'
 
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/houses', component: Home },
+        { path: '/houses', component: Houses },
         { path: '/about', component: About },
     ]
 });
@@ -30,7 +30,7 @@ var requestOptions = {
 
 fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
                 .then(response => response.json())
-                .then(result => console.log(result[0].constructionYear)) //RESULT
+                .then(result => console.log(result)) //RESULT
                 .catch(error => console.log('error', error))
 
                 

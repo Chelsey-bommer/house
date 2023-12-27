@@ -31,3 +31,17 @@ h1, h2{
 p, input{
     font-family: 'Open Sans', regular;
 }
+
+
+
+img{
+    width:20%;
+}
+
+.housesIsActive{
+    background-color: green;
+}
+
+.navIsActive{
+    background-color: pink;
+}

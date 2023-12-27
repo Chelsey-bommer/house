@@ -1,12 +1,13 @@
 <template>
     <h1>Houses!</h1>
-    <p>I like most types of food.</p>
 
 
     <div>
-
-        <div v-for="item in listItems">
-             {{item}}
+        <div v-for="houses in houseList">
+            <img :src="houses.image" alt="">
+             <h2>{{ houses.location.city }} {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
+             <p> {{ houses.price }}</p>
+             <p> {{ houses.location.zip }}</p>
          </div>
 
     </div>
@@ -27,17 +28,17 @@ var requestOptions = {
     redirect: 'follow'
 }
 
-fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
-    .then(response => response.json())
-    .then(result => console.log(result[0].constructionYear)) //RESULT
-    .catch(error => console.log('error', error))
+// fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
+//     .then(response => response.json())
+//     .then(result => console.log(result[0])) //RESULT
+//     .catch(error => console.log('error', error))
 
 
 export default {
     props: ['header', 'text'],
     data(){
         return{
-            listItems: []
+            houseList: []
         }
     },
 
@@ -45,7 +46,7 @@ export default {
         async getData(){
             const res = await fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
             const finalRes = await res.json();
-            this.listItems = finalRes
+            this.houseList = finalRes
         }
     },
     mounted() {
