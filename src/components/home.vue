@@ -1,11 +1,13 @@
 <template>
-    <div class="backdrop">
-        <div class="modal">
-            <p>modal content</p>   
-            <h1>hey</h1>
-        </div>
-    </div>
+    <h1>Food!</h1>
+    <p>I like most types of food.</p>
 </template>
+
+<script>
+export default{
+    props: ['header', 'text']
+}
+</script>
 
 <style scoped>
     .modal{
