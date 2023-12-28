@@ -8,6 +8,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import Houses from './components/houses.vue'
 import About from './components/about.vue'
+import Details from './components/detail.vue'
 
 
 const router = createRouter({
@@ -15,6 +16,7 @@ const router = createRouter({
     routes: [
         { path: '/houses', component: Houses },
         { path: '/about', component: About },
+        {path: '/house/:id', component: Details, name: 'houseDetails'}
     ]
 });
 

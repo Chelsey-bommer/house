@@ -1,14 +1,21 @@
 <template>
-    <h1>Houses!</h1>
-
+    
 
     <div>
+        <h1>Houses</h1>
         <div v-for="houses in houseList" class="houseslist">
-            <img :src="houses.image" alt="">
+            <img :src="houses.image" alt="" :key="houses.id">
+            <div>
              <h2>{{ houses.location.city }} {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
              <p> {{ houses.price }}</p>
              <p> {{ houses.location.zip }}</p>
+             <router-link :to="{ name:'houseDetails', params:{id: houses.id}}"> See tha house</router-link>
+            </div>
+            
+            
          </div>
+
+        
 
     </div>
 </template>
@@ -38,8 +45,14 @@ export default {
     props: ['header', 'text'],
     data(){
         return{
-            houseList: []
+            houseList: [],
+            searchHouses: ''
         }
+    },
+    computed:{
+    //  searchHouses(){
+    //      return this.houseList.filter(w =>w.name.includes(this.searchHouses))
+    //  }
     },
 
     methods: {
@@ -67,9 +80,16 @@ export default {
     padding:1em;
 
     border-radius: 5px;
+
+    display:flex;
 }
 
 .houseslist img{
-    width:30%;
+    width:200px;
+}
+
+h1{
+    margin-left:19%;
+    margin-top:1em;
 }
 </style>

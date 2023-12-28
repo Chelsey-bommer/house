@@ -29,14 +29,14 @@ h1, h2{
     font-family: 'Montserrat', bold;
 }
 p, input{
-    font-family: 'Open Sans', regular;
+    font-family: 'Open Sans', medium;
 }
 
-
-.housesIsActive{
-    background-color: green;
+a{
+    text-decoration: none;
+    font-size:18px;
 }
 
-.navIsActive{
-    background-color: pink;
+a:visited{
+    color: var(--primary-text);
 }
