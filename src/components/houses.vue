@@ -3,7 +3,7 @@
 
 
     <div>
-        <div v-for="houses in houseList">
+        <div v-for="houses in houseList" class="houseslist">
             <img :src="houses.image" alt="">
              <h2>{{ houses.location.city }} {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
              <p> {{ houses.price }}</p>
@@ -53,27 +53,23 @@ export default {
       this.getData()
     }
 
-
-
-
-
 }
 </script>
 
-<style scoped>
-.modal {
-    width: 400px;
-    padding: 20px;
-    margin: 100px auto;
-    background: white;
-    border-radius: 10px
+<style>
+.houseslist{
+    background-color: var(--background-color2);
+
+    width:60%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:1em;
+    padding:1em;
+
+    border-radius: 5px;
 }
 
-.backdrop {
-    top: 0;
-    position: fixed;
-    background: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
+.houseslist img{
+    width:30%;
 }
 </style>
