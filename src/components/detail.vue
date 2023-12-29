@@ -1,12 +1,20 @@
 <template>
     
 
-    <div v-if="house">
+    <div v-if="houseList">
         <h1>House Detail page </h1>
         <p>{{ id }}</p>
     
-        <div v-for="house in house">
-            <p>{{ house.price }}</p>
+        <div v-for="house in houseList">
+            <h2>{{ house.location.street }} {{ house.location.houseNumber }}</h2>
+            <p>tha price: {{ house.price }}</p>
+            <p>{{ house.location.zip }} {{ house.location.city }}</p>
+            <img :src=" house.image" alt="">
+            <p>{{ house.description }}</p>
+            <p> Bedrooms: {{ house.rooms.bedrooms }} Bathrooms: {{ house.rooms.bathrooms }}</p>
+            <p>Size: {{ house.size }}</p>
+            <p>Jaar: {{ house.constructionYear }}</p>
+            <p>Garage: {{ house.hasGarage }}</p>
         </div>
     </div>
     
@@ -27,7 +35,7 @@ var requestOptions = {
 export default {
     data() {
         return {
-            house: null,
+            houseList: null,
 
         }
     },
@@ -36,8 +44,8 @@ export default {
         async getData(){
             const res = await fetch("https://api.intern.d-tt.nl/api/houses/" + this.id, requestOptions)
             const finalRes = await res.json();
-            this.house = finalRes
-            console.log(this.house)
+            this.houseList = finalRes
+            console.log(this.houseList)
         }
     },
     mounted() {
@@ -45,8 +53,13 @@ export default {
     }
 
 
-
 }
 
-
 </script>
+
+<style scoped>
+    img{
+        width: 200px;
+    }
+
+</style>
