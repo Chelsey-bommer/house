@@ -22,6 +22,8 @@
 body{
     margin:0;
     background-color: var(--background-color1);
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* GLOBAL FONTS */

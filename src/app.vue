@@ -4,7 +4,7 @@
     <div class="nav">
         <img src="./assets/img/img_logo_dtt@3x.png" alt="DTT Logo" class="logo">
         <router-link to="/houses" @click="housesClick" :class="{housesIsActive}" class="houses"> Houses</router-link> 
-        <router-link to="/about" @click="navClick" :class="{navIsActive}" class="nav">about</router-link> <br>
+        <router-link to="/about" @click="navClick" :class="{navIsActive}" class="navlink">about</router-link> <br>
         
     </div>
    
@@ -50,15 +50,27 @@
 
 <style>
 .logo{
-    width:200px;
+    width:150px;
 }
 
 .nav{
     background-color: var(--background-color2);
     font-family: 'Montserrat', regular;
     text-decoration: none;
+    padding:1em;
 }
 
+.nav img{
+    margin-left:19%;
+}
+
+.navlink{
+    padding:1em;
+}
+
+.houses{
+    padding:1em;
+}
 .housesIsActive{
     font-weight: bold;
 }

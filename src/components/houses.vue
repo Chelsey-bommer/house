@@ -9,7 +9,7 @@
              <h2>{{ houses.location.city }} {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
              <p> {{ houses.price }}</p>
              <p> {{ houses.location.zip }}</p>
-             <router-link :to="{ name:'houseDetails', params:{id: houses.id}}"> See tha house</router-link>
+             <router-link :to="{ name:'houseDetails', params:{id: houses.id}}" > See tha house</router-link>
             </div>
             
             
@@ -50,9 +50,7 @@ export default {
         }
     },
     computed:{
-    //  searchHouses(){
-    //      return this.houseList.filter(w =>w.name.includes(this.searchHouses))
-    //  }
+  
     },
 
     methods: {
@@ -69,7 +67,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .houseslist{
     background-color: var(--background-color2);
 
