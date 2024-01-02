@@ -8,16 +8,21 @@
 
         <input v-model="searchHouses" placeholder="Search by City">
 
-        <div v-for="houses in filteredAndSortedHouses" class="houseslist">
-            <img :src="houses.image" alt="" :key="houses.id">
-            <div>
-                <h2> {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
-                <p> {{ houses.price }}</p>
-                <p> {{ houses.location.zip }} {{ houses.location.city }}</p>
-                <router-link :to="{ name: 'houseDetails', params: { id: houses.id } }"> See tha house</router-link>
+        <div v-if="filteredAndSortedHouses.length > 0"> <!-- check for results -->
+            <div v-for="houses in filteredAndSortedHouses" class="houseslist">
+                <img :src="houses.image" alt="" :key="houses.id">
+                <div>
+                    <h2> {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
+                    <p> {{ houses.price }}</p>
+                    <p> {{ houses.location.zip }} {{ houses.location.city }}</p>
+                    <router-link :to="{ name: 'houseDetails', params: { id: houses.id } }"> See tha house</router-link>
+                </div>
             </div>
-
         </div>
+        <div v-else>
+            <p>There were no houses found in this city</p>
+        </div>
+
 
     </div>
 </template>
