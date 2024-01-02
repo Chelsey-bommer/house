@@ -3,7 +3,7 @@ import { createApp } from "vue"
 import App from './app.vue'
 import './assets/global.css'
 import { createRouter, createWebHistory } from 'vue-router'
-
+import store from './store';
 
 
 import Houses from './components/houses.vue'
@@ -28,6 +28,7 @@ const router = createRouter({
 
 createApp(App)
   .use(router)
+  .use(store) // Use the Vuex store
   .mount('#app')
   
 

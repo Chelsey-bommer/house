@@ -3,13 +3,14 @@
 
     <p>{{ streetname }}</p>
 
-    <form @click="submitForm">
+    <form @submit.prevent="submitForm">
         <p>Street name*</p>
         <input type="text" placeholder="Enter the street name" required v-model="streetname">
 
         <p>House number</p>
         <p>Additional</p>
-        <input type="text" placeholder="Enter house number" required v-model="housenumber"> <input type="text" placeholder="e.g. A" v-model="additional">
+        <input type="text" placeholder="Enter house number" required v-model="housenumber"> <input type="text"
+            placeholder="e.g. A" v-model="additional">
 
         <p>Postal code</p>
         <input type="text" placeholder="e.g. 1000 AB" required v-model="postalcode">
@@ -42,10 +43,9 @@
 
         <p>Description</p>
         <input type="text" placeholder="Enter description" required v-model="description">
-    </form>
-    <button type="submit" form="formHouse">Post</button>
 
-    
+        <button type="submit">Post</button>
+    </form>
 </template>
 <script>
 
@@ -70,10 +70,35 @@ export default {
             description: '',
         }
     },
-    methods:{
-        submitForm(){
+    methods: {
+        submitForm() {
+        // Create a new house object with form data
+        const newHouse = {
+            location: {
+                street: this.streetname,
+                housenumber: this.housenumber,
+                additional: this.additional,
+                zip: this.postalcode,
+                city: this.city,
+            },
+            image: this.image,
+            price: this.price,
+            size: this.size,
+            garage: this.yes,
+            bedrooms: this.bedrooms,
+            bathrooms: this.bathrooms,
+            constructionDate: this.date,
+            description: this.description,
+        };
 
-        }
+        // Access the store and dispatch the action
+        this.$store.dispatch('addNewHouse', newHouse);
+
+        // Reset the form fields after submission
+        this.streetname = '';
+        // ... (reset other form data properties)
+    },
+        
     }
 }
 </script>

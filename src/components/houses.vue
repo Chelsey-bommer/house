@@ -32,6 +32,7 @@
 
 <script>
 import { computed, ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
 
 var myHeaders = new Headers();
@@ -43,14 +44,14 @@ var requestOptions = {
     redirect: 'follow'
 }
 
-// fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
-//     .then(response => response.json())
-//     .then(result => console.log(result[0])) //RESULT
-//     .catch(error => console.log('error', error))
 
 
 export default {
     props: ['header', 'text'],
+    setup() {
+        const store = useStore();
+        // ...
+    },
     data() {
         return {
             houseList: [],
@@ -63,7 +64,7 @@ export default {
         filteredAndSortedHouses() {
 
             // Filter houses based on the search criteria
-            const filteredHouses = this.houseList.filter(house =>
+            const filteredHouses = this.$store.state.houseList.filter(house =>
                 house.location.city.toLowerCase().includes(this.searchHouses.toLowerCase())
             );
 
@@ -89,9 +90,15 @@ export default {
         clearSearch() {
             this.searchHouses = '';
         },
+        // Method to add a new house to the houseList
+        addNewHouse(newHouse) {
+            this.$store.commit('setHouseList', [...this.houseList, newHouse]);
+        }
     },
     mounted() {
         this.getData()
+        const houseList = this.$store.state.houseList;
+        console.log(houseList);
     }
 
 }
