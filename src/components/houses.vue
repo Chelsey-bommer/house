@@ -7,6 +7,7 @@
         <button @click="sortHousesByPrice('desc')">Sort by Price descending</button>
 
         <input v-model="searchHouses" placeholder="Search by City">
+        <button @click="clearSearch">X</button>
 
         <div v-if="filteredAndSortedHouses.length > 0"> <!-- check for results -->
             <p>Houses found: {{ filteredAndSortedHouses.length }}</p>
@@ -84,6 +85,9 @@ export default {
         sortHousesByPrice(order) {
             // Order determined by button
             this.sortOrder = order;
+        },
+        clearSearch() {
+            this.searchHouses = '';
         },
     },
     mounted() {
