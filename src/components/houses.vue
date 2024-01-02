@@ -9,6 +9,7 @@
         <input v-model="searchHouses" placeholder="Search by City">
 
         <div v-if="filteredAndSortedHouses.length > 0"> <!-- check for results -->
+            <p>Houses found: {{ filteredAndSortedHouses.length }}</p>
             <div v-for="houses in filteredAndSortedHouses" class="houseslist">
                 <img :src="houses.image" alt="" :key="houses.id">
                 <div>
