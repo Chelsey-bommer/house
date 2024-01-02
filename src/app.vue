@@ -10,6 +10,7 @@
    
     <!--SEARCH-->
     
+    <router-link to="/addhouse">Create new</router-link>
 
     <!-- PAGE CONTENT-->
     <div>
