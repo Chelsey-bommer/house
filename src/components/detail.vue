@@ -1,6 +1,5 @@
 <template>
     
-
     <div v-if="houseList">
         <h1>House Detail page </h1>
         <p>{{ id }}</p>

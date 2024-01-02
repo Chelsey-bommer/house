@@ -1,5 +1,5 @@
 <template>
-    <input type="text" placeholder="Search houses..." v-model="searchWatches">
+    <input v-model="searchHouses" placeholder="Search by City">
     
 </template>  
 

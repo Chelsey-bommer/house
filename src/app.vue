@@ -9,7 +9,7 @@
     </div>
    
     <!--SEARCH-->
-    <search/>
+    
 
     <!-- PAGE CONTENT-->
     <div>

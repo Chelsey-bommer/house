@@ -1,13 +1,19 @@
 <template>
     <div>
         <h1>Houses</h1>
-        <button @click="sortHousesByPrice">Sort by Price</button>
-        <div v-for="houses in sortedHouseList" class="houseslist">
+
+        <!-- sorting buttons -->
+        <button @click="sortHousesByPrice('asc')">Sort by Price ascending</button>
+        <button @click="sortHousesByPrice('desc')">Sort by Price descending</button>
+
+        <input v-model="searchHouses" placeholder="Search by City">
+
+        <div v-for="houses in filteredAndSortedHouses" class="houseslist">
             <img :src="houses.image" alt="" :key="houses.id">
             <div>
-                <h2>{{ houses.location.city }} {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
+                <h2> {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
                 <p> {{ houses.price }}</p>
-                <p> {{ houses.location.zip }}</p>
+                <p> {{ houses.location.zip }} {{ houses.location.city }}</p>
                 <router-link :to="{ name: 'houseDetails', params: { id: houses.id } }"> See tha house</router-link>
             </div>
 
@@ -18,7 +24,7 @@
 
 
 <script>
-import { computed, ref, onMounted  } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 
 
 var myHeaders = new Headers();
@@ -42,16 +48,22 @@ export default {
         return {
             houseList: [],
             searchHouses: '',
-            sortBy: 'price', // Default sorting by price
             sortOrder: 'asc', // Default sorting order (ascending)
         }
     },
 
     computed: {
-        sortedHouseList() {
-            return this.houseList.slice().sort((a, b) => {
+        filteredAndSortedHouseList() {
+
+            // Filter houses based on the search criteria
+            const filteredHouses = this.houseList.filter(house =>
+                house.location.city.toLowerCase().includes(this.searchHouses.toLowerCase())
+            );
+
+            // Sort the filtered houses
+            return filteredHouses.slice().sort((a, b) => {
                 const order = this.sortOrder === 'asc' ? 1 : -1;
-                return order * (a[this.sortBy] - b[this.sortBy]);
+                return order * (a.price - b.price);
             });
         },
     },
@@ -63,9 +75,9 @@ export default {
             this.houseList = finalRes
         },
 
-        async sortHousesByPrice() {
-            // Toggle sorting order when the button is clicked
-            this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+        sortHousesByPrice(order) {
+            // Order determined by button
+            this.sortOrder = order;
         },
     },
     mounted() {
