@@ -53,7 +53,7 @@ export default {
     },
 
     computed: {
-        filteredAndSortedHouseList() {
+        filteredAndSortedHouses() {
 
             // Filter houses based on the search criteria
             const filteredHouses = this.houseList.filter(house =>
