@@ -9,7 +9,7 @@
 
         <p>House number</p>
         <p>Additional</p>
-        <input type="text" placeholder="Enter house number" required v-model="housenumber"> <input type="text"
+        <input type="text" placeholder="Enter house number" required v-model="housenumber" pattern="\d{1,5}"> <input type="text"
             placeholder="e.g. A" v-model="additional">
 
         <p>Postal code</p>
