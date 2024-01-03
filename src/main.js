@@ -14,7 +14,7 @@ import AddHouse from './components/addHouse.vue'
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/houses', component: Houses },
+        { path: '/houses', component: Houses, name: 'Houses' },
         { path: '/about', component: About },
         {path: '/house/:id', component: Details, name: 'houseDetails', props: true},
         {path: '/addhouse', component: AddHouse}

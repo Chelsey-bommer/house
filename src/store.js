@@ -4,19 +4,17 @@ import { createStore } from 'vuex';
 export default createStore({
     state: {
         houseList: [],
+        addedHouseList: []
     },
     mutations: {
         setHouseList(state, newHouseList) {
             state.houseList = newHouseList;
         },
-    },
-    actions: {
-        
-        async addNewHouse({ commit, state }, newHouse) {
-            // You can perform any asynchronous logic here (e.g., API calls) before committing the mutation
-            commit('setHouseList', [...state.houseList, newHouse]);
+        setAddedHouseList(state, addedHouseList) {
+            state.addedHouseList = addedHouseList;
         },
     },
+    
     // other store configurations...
 });
 

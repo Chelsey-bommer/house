@@ -1,15 +1,16 @@
 <template>
-<h1>Create new listing</h1>
+    <h1>Create new listing</h1>
 
     <p>{{ streetname }}</p>
 
-    <form @click="submitForm">
+    <form @submit.prevent="submitForm">
         <p>Street name*</p>
         <input type="text" placeholder="Enter the street name" required v-model="streetname">
 
         <p>House number</p>
         <p>Additional</p>
-        <input type="text" placeholder="Enter house number" required v-model="housenumber"> <input type="text" placeholder="e.g. A" v-model="additional">
+        <input type="text" placeholder="Enter house number" required v-model="housenumber"> <input type="text"
+            placeholder="e.g. A" v-model="additional">
 
         <p>Postal code</p>
         <input type="text" placeholder="e.g. 1000 AB" required v-model="postalcode">
@@ -42,17 +43,23 @@
 
         <p>Description</p>
         <input type="text" placeholder="Enter description" required v-model="description">
+
+        <button type="submit">Post</button>
+        
     </form>
-    <button type="submit" form="formHouse">Post</button>
-
-
+    
+    
 </template>
 
 
 <script>
+import { Store } from 'vuex'
+import store from '../store';
+
 export default {
     data() {
         return {
+            addedHouseList: [],
             streetname: '',
             housenumber: '',
             additional: '',
@@ -68,11 +75,37 @@ export default {
             bathrooms: '',
             date: '',
             description: '',
+            id: ''
         }
     },
-    methods:{
-        submitForm(){
+    methods: {
+        submitForm() {
+            const lastId = store.state.houseList.reduce((maxId, house) => Math.max(maxId, house.id), 0)
+            const newHouse = {
+                id: lastId + 1,
+                streetname: this.streetname,
+                housenumber: this.housenumber,
+                additional: this.additional,
+                postalcode: this.postalcode,
+                city: this.city,
+                image: this.image,
+                price: this.price,
+                size: this.size,
+                garage: this.yes,
+                bedrooms: this.bedrooms,
+                bathrooms: this.bathrooms,
+                date: this.date,
+                description: this.description
+            }
+
+            this.addedHouseList.push(newHouse);
+            store.commit('setAddedHouseList', this.addedHouseList);
+            console.log(this.addedHouseList);
+
+             // Redirect to the Houses component and pass addedHouseList as a prop
+            this.$router.push({ name: 'Houses' });
         }
     }
+    
 }
 </script>

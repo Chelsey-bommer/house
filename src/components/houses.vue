@@ -25,6 +25,22 @@
             <p>There were no houses found in this city</p>
         </div>
 
+        <div v-if="addedHouseList.length > 0">
+            <p>My Added Houses:</p>
+            <div v-for="house in addedHouseList" :key="house.id" class="houseslist">
+                <!-- Adjust the data properties according to your structure -->
+                <img :src="house.image" alt="">
+                <div>
+                    <h2>{{ house.streetname }} {{ house.housenumber }}</h2>
+                    <p>{{ house.price }}</p>
+                    <p>{{ house.postalcode }} {{ house.city }}</p>
+                    <!-- Add any other properties you want to display -->
+                </div>
+            </div>
+        </div>
+       
+       
+        
 
     </div>
 </template>
@@ -32,6 +48,7 @@
 
 <script>
 import { computed, ref, onMounted } from 'vue';
+import store from '../store';
 
 
 var myHeaders = new Headers();
@@ -50,10 +67,11 @@ var requestOptions = {
 
 
 export default {
-    props: ['header', 'text'],
+    props: ['header', 'text', 'addedHouseList'],
     data() {
         return {
             houseList: [],
+            addedHouseList: [],
             searchHouses: '',
             sortOrder: 'asc', // Default sorting order (ascending)
         }
@@ -73,8 +91,13 @@ export default {
                 return order * (a.price - b.price);
             });
         },
-    },
 
+        
+        addedHouseList() {
+            return store.state.addedHouseList;
+        },
+
+    },
     methods: {
         async getData() {
             const res = await fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
@@ -85,13 +108,20 @@ export default {
         sortHousesByPrice(order) {
             // Order determined by button
             this.sortOrder = order;
+            
         },
         clearSearch() {
             this.searchHouses = '';
         },
+
+        
     },
     mounted() {
         this.getData()
+        // Access addedHouseList prop passed from addHouse.vue
+        if (this.$route.params.addedHouseList) {
+            this.houseList = this.$route.params.addedHouseList;
+        }
     }
 
 }
@@ -120,5 +150,4 @@ h1 {
     margin-left: 19%;
     margin-top: 1em;
 }
-
 </style>
