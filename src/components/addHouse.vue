@@ -99,7 +99,9 @@ export default {
             }
 
             this.addedHouseList.push(newHouse);
-            store.commit('setAddedHouseList', this.addedHouseList);
+
+            // Dispatch the mutation to update addedHouseList in the store
+            store.commit('pushToAddedHouseList', newHouse); 
             console.log(this.addedHouseList);
 
              // Redirect to the Houses component and pass addedHouseList as a prop

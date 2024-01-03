@@ -11,8 +11,8 @@ export default createStore({
         setHouseList(state, newHouseList) {
             state.houseList = newHouseList;
         },
-        setAddedHouseList(state, addedHouseList) {
-            state.addedHouseList = addedHouseList;
+        pushToAddedHouseList(state, newHouse) {
+            state.addedHouseList.push(newHouse);
         },
     },
     plugins: [createPersistedState()],
