@@ -59,7 +59,7 @@ export default {
         return {
             addedHouseList: [],
             streetname: '',
-            housenumber: 0,
+            housenumber: '',
             additional: '',
             postalcode: '',
             city: '',

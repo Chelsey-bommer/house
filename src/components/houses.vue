@@ -35,6 +35,7 @@
                     <p>{{ house.price }}</p>
                     <p>{{ house.postalcode }} {{ house.city }}</p>
                     <!-- Add any other properties you want to display -->
+                    <router-link :to="{ name: 'houseDetails', params: { id: house.id } }"> See tha house</router-link>
                 </div>
             </div>
         </div>
