@@ -105,7 +105,7 @@ export default {
             console.log(this.addedHouseList);
 
              // Redirect to the Houses component and pass addedHouseList as a prop
-            this.$router.push({ name: 'Houses' });
+            this.$router.push({ name: 'houseDetails', params: {id: newHouse.id }});
         }
     }
     
