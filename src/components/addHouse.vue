@@ -45,10 +45,8 @@
         <input type="text" placeholder="Enter description" required v-model="description">
 
         <button type="submit">Post</button>
-        
+
     </form>
-    
-    
 </template>
 
 
@@ -79,10 +77,11 @@ export default {
         }
     },
     methods: {
-        submitForm() {
-            const lastId = store.state.houseList.reduce((maxId, house) => Math.max(maxId, house.id), 0)
+        async submitForm() {
+            // Generate a new house with a new ID
+            const newId = await store.dispatch('generateNewId');
             const newHouse = {
-                id: lastId + 1,
+                id: newId,
                 streetname: this.streetname,
                 housenumber: this.housenumber,
                 additional: this.additional,
@@ -101,13 +100,13 @@ export default {
             this.addedHouseList.push(newHouse);
 
             // Dispatch the mutation to update addedHouseList in the store
-            store.commit('pushToAddedHouseList', newHouse); 
+            store.commit('pushToAddedHouseList', newHouse);
             console.log(this.addedHouseList);
 
-             // Redirect to the Houses component and pass addedHouseList as a prop
-            this.$router.push({ name: 'houseDetails', params: {id: newHouse.id }});
+            // Redirect to the Houses component and pass addedHouseList as a prop
+            this.$router.push({ name: 'houseDetails', params: { id: newHouse.id } });
         }
     }
-    
+
 }
 </script>

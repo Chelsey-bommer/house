@@ -16,6 +16,23 @@ export default createStore({
         },
     },
     plugins: [createPersistedState()],
+    actions: {
+        generateNewId({ state }) {
+          const houseList = state.houseList.concat(state.addedHouseList);
+          if (houseList.length > 0) {
+            const maxId = houseList.reduce((max, house) => Math.max(max, house.id), 0);
+            return maxId + 1;
+          } else {
+            return 1;
+          }
+        },
+        addHouse({ commit, dispatch, state }, newHouseData) {
+          const newId = dispatch('generateNewId');
+          const newHouse = { id: newId, ...newHouseData };
+          commit('pushToAddedHouseList', newHouse);
+          return newHouse;
+        },
+      },
     // other store configurations...
 });
 
