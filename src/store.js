@@ -1,5 +1,6 @@
 
 import { createStore } from 'vuex';
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
     state: {
@@ -14,7 +15,7 @@ export default createStore({
             state.addedHouseList = addedHouseList;
         },
     },
-    
+    plugins: [createPersistedState()],
     // other store configurations...
 });
 
