@@ -13,7 +13,7 @@
             placeholder="e.g. A" v-model="additional">
 
         <p>Postal code</p>
-        <input type="text" placeholder="e.g. 1000 AB" required v-model="postalcode">
+        <input type="text" placeholder="e.g. 1000 AB" required v-model="postalcode"  pattern="\d{4}[A-Za-z]{2}">
 
         <p>City</p>
         <input type="text" placeholder="e.g. Utrecht" required v-model="city">
@@ -39,7 +39,7 @@
         <input type="text" placeholder="Enter amount" required v-model="bathrooms">
 
         <p>Construction date</p>
-        <input type="text" placeholder="E.g. 1960" required v-model="date">
+        <input type="date" placeholder="E.g. 1960" required v-model="date">
 
         <p>Description</p>
         <input type="text" placeholder="Enter description" required v-model="description">
@@ -59,7 +59,7 @@ export default {
         return {
             addedHouseList: [],
             streetname: '',
-            housenumber: '',
+            housenumber: 0,
             additional: '',
             postalcode: '',
             city: '',
