@@ -39,9 +39,6 @@
                 </div>
             </div>
         </div>
-       
-       
-        
 
     </div>
 </template>
@@ -60,11 +57,6 @@ var requestOptions = {
     headers: myHeaders,
     redirect: 'follow'
 }
-
-// fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
-//     .then(response => response.json())
-//     .then(result => console.log(result[0])) //RESULT
-//     .catch(error => console.log('error', error))
 
 
 export default {

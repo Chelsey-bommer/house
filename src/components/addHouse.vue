@@ -58,7 +58,6 @@ export default {
     data() {
         return {
             addedHouseList: [],
-            streetname: '',
             housenumber: '',
             additional: '',
             postalcode: '',
