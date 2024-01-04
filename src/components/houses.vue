@@ -9,35 +9,21 @@
         <input v-model="searchHouses" placeholder="Search by City">
         <button @click="clearSearch">X</button>
 
-        <div v-if="filteredAndSortedHouses.length > 0"> <!-- check for results -->
-            <p>Houses found: {{ filteredAndSortedHouses.length }}</p>
-            <div v-for="houses in filteredAndSortedHouses" class="houseslist">
-                <img :src="houses.image" alt="" :key="houses.id">
+        <div v-if="allHouses.length > 0"> <!-- check for results -->
+            <p>Houses found: {{ allHouses.length }}</p>
+            <div v-for="house in allHouses" :key="house.id" class="houseslist">
+                <img :src="house.image" alt="" :key="house.id">
                 <div>
-                    <h2> {{ houses.location.street }} {{ houses.location.houseNumber }}</h2>
-                    <p> {{ houses.price }}</p>
-                    <p> {{ houses.location.zip }} {{ houses.location.city }}</p>
-                    <router-link :to="{ name: 'houseDetails', params: { id: houses.id } }"> See tha house</router-link>
+                    <h2> {{ house.street || house.streetname }} {{ house.houseNumber || house.housenumber
+                    }}</h2>
+                    <p> {{ house.price }}</p>
+                    <p> {{ house.zip || house.postalcode }} {{ house.city || house.city }}</p>
+                    <router-link :to="{ name: 'houseDetails', params: { id: house.id } }"> See tha house</router-link>
                 </div>
             </div>
         </div>
         <div v-else>
             <p>There were no houses found in this city</p>
-        </div>
-
-        <div v-if="addedHouseList.length > 0">
-            <p>My Added Houses:</p>
-            <div v-for="house in addedHouseList" :key="house.id" class="houseslist">
-                <!-- Adjust the data properties according to your structure -->
-                <img :src="house.image" alt="">
-                <div>
-                    <h2>{{ house.streetname }} {{ house.housenumber }}</h2>
-                    <p>{{ house.price }}</p>
-                    <p>{{ house.postalcode }} {{ house.city }}</p>
-                    <!-- Add any other properties you want to display -->
-                    <router-link :to="{ name: 'houseDetails', params: { id: house.id } }"> See tha house</router-link>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -84,11 +70,14 @@ export default {
                 return order * (a.price - b.price);
             });
         },
-
-        
-        addedHouseList() {
-            return store.state.addedHouseList;
+        allHouses() {
+            // Concatenate houseList and addedHouseList into a new array
+            return [...this.houseList, ...store.state.addedHouseList];
         },
+
+        // addedHouseList() {
+        //     return store.state.addedHouseList;
+        // },
 
     },
     methods: {
@@ -101,13 +90,13 @@ export default {
         sortHousesByPrice(order) {
             // Order determined by button
             this.sortOrder = order;
-            
+
         },
         clearSearch() {
             this.searchHouses = '';
         },
 
-        
+
     },
     mounted() {
         this.getData()
