@@ -5,7 +5,8 @@ import createPersistedState from 'vuex-persistedstate'
 export default createStore({
     state: {
         houseList: [],
-        addedHouseList: []
+        addedHouseList: [],
+        houseDetails: null,
     },
     mutations: {
         setHouseList(state, newHouseList) {

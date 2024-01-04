@@ -9,11 +9,11 @@
 
         <p>House number</p>
         <p>Additional</p>
-        <input type="text" placeholder="Enter house number" required v-model="housenumber" pattern="\d{1,5}"> <input type="text"
-            placeholder="e.g. A" v-model="additional">
+        <input type="text" placeholder="Enter house number" required v-model="housenumber" pattern="\d{1,5}"> <input
+            type="text" placeholder="e.g. A" v-model="additional">
 
         <p>Postal code</p>
-        <input type="text" placeholder="e.g. 1000 AB" required v-model="postalcode"  pattern="\d{4}[A-Za-z]{2}">
+        <input type="text" placeholder="e.g. 1000 AB" required v-model="postalcode" pattern="\d{4}[A-Za-z]{2}">
 
         <p>City</p>
         <input type="text" placeholder="e.g. Utrecht" required v-model="city">
@@ -105,6 +105,18 @@ export default {
             // Redirect to the Houses component and pass addedHouseList as a prop
             this.$router.push({ name: 'houseDetails', params: { id: newHouse.id }, query: { source: 'added' } });
         }
+    },
+    actions: {
+        generateNewId({ state }) {
+            // Combine existing house IDs from both houseList and addedHouseList
+            const allHouseIds = [...state.houseList, ...state.addedHouseList].map(house => house.id);
+
+            // Find the maximum ID
+            const maxId = Math.max(...allHouseIds);
+
+            // Increment the maximum ID to create a new one
+            return maxId >= 0 ? maxId + 1 : 1; // Ensure the ID is positive
+        },
     }
 
 }

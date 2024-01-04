@@ -1,20 +1,49 @@
 <template>
     <div v-if="houseDetails">
-
         <h1>House Detail page </h1>
-        <p>{{ houseDetails.id }}</p>
+        <div v-if="this.source === 'added'">
+            <div>
+                <p>{{ houseDetails.id }}</p>
+                <h2>
+                    {{ houseDetails.streetname || houseDetails.location?.street }}
+                    {{ houseDetails.housenumber || houseDetails.location?.houseNumber }}
+                </h2>
+                <p>tha price: {{ houseDetails.price }}</p>
+                <p>{{ houseDetails.postalcode || houseDetails.location?.zip }} {{ houseDetails.city ||
+                    houseDetails.location?.city }}</p>
+                <img :src="houseDetails.image" alt="">
+                <p>{{ houseDetails.description }}</p>
+                <p> Bedrooms: {{ houseDetails.bedrooms || houseDetails.rooms?.bedrooms }} Bathrooms: {{
+                    houseDetails.bathrooms
+                    || houseDetails.rooms?.bathrooms }}</p>
+                <p>Size: {{ houseDetails.size }}</p>
+                <p>Jaar: {{ houseDetails.date || houseDetails.constructionYear }}</p>
+                <p>Garage: {{ houseDetails.hasGarage }}</p>
+            </div>
+        </div>
 
-        <h2>{{ houseDetails.streetname || houseDetails.street }} {{ houseDetails.housenumber || houseDetails.houseNumber
-        }}</h2>
-        <p>tha price: {{ houseDetails.price }}</p>
-        <p>{{ houseDetails.postalcode || houseDetails.zip }} {{ houseDetails.city || houseDetails.city }}</p>
-        <img :src="houseDetails.image" alt="">
-        <p>{{ houseDetails.description }}</p>
-        <p> Bedrooms: {{ houseDetails.bedrooms }} Bathrooms: {{ houseDetails.bathrooms }}</p>
-        <p>Size: {{ houseDetails.size }}</p>
-        <p>Jaar: {{ houseDetails.constructionYear }}</p>
-        <p>Garage: {{ houseDetails.hasGarage }}</p>
+        <div v-else v-for="house in houseDetails" :key="house.id">
 
+            <p>{{ house.id }}</p>
+
+            <h2>
+                {{ house.streetname || house.location?.street }}
+                {{ house.housenumber || house.location?.houseNumber }}
+            </h2>
+            <p>tha price: {{ house.price }}</p>
+            <p>{{ house.postalcode || house.location?.zip }} {{ house.city || house.location?.city }}</p>
+            <img :src="house.image" alt="">
+            <p>{{ house.description }}</p>
+            <p> Bedrooms: {{ house.bedrooms || house.rooms?.bedrooms }} Bathrooms: {{ house.bathrooms ||
+                house.rooms?.bathrooms }}</p>
+            <p>Size: {{ house.size }}</p>
+            <p>Jaar: {{ house.date || house.constructionYear }}</p>
+            <p>Garage: {{ house.hasGarage }}</p>
+        </div>
+
+    </div>
+    <div v-else>
+        <p>No house details available.</p>
     </div>
 </template>
 
@@ -47,7 +76,8 @@ export default {
         async fetchHouseDetails() {
             console.log('Source:', this.source);
             console.log('ID:', this.id);
-
+            // Log the current state.houseList
+            console.log('Current houseList:', store.state.houseList);
             try {
                 if (this.source === 'added') {
                     // Fetch details from addedHouseList
@@ -60,8 +90,11 @@ export default {
                     if (!res.ok) {
                         throw new Error(`HTTP error! Status: ${res.status}`);
                     }
+                    const apiHouseDetails = await res.json();
+                    store.commit('setHouseDetails', apiHouseDetails);
+                    this.houseDetails = apiHouseDetails;
 
-                    this.houseDetails = await res.json();
+                    console.log('Store House Details:', store.state.houseDetails);
                 }
             } catch (error) {
                 console.error('Error fetching house details:', error);

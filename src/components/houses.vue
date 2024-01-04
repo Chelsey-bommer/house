@@ -20,8 +20,8 @@
                     }}</h2>
                     <p> {{ house.price }}</p>
                     <p> {{ house.postalcode || house.location.zip }} {{ house.city || house.location.city }}</p>
-                    <router-link :to="{ name: 'houseDetails', params: { id: house.id}, query: { source: 'added' }}"> See tha house</router-link>
-                    
+                    <router-link :to="getHouseDetailsLink(house)"> See tha house</router-link>
+
                     <!-- <router-link :to="{ name: 'houseDetails', params: { id: house.id } }"> See tha house</router-link> -->
                 </div>
             </div>
@@ -97,7 +97,17 @@ export default {
         // clearAddedHouseList() {
         //  this.$store.dispatch('clearAddedHouseList');
         // },
+        getHouseDetailsLink(house) {
+            // Check whether the house is from the added list
+            const isAddedHouse = store.state.addedHouseList.some(addedHouse => addedHouse.id === house.id);
 
+            // Construct the route object based on the condition
+            return {
+                name: 'houseDetails',
+                params: { id: house.id },
+                query: { source: isAddedHouse ? 'added' : 'api' }
+            };
+        },
 
     },
     mounted() {
