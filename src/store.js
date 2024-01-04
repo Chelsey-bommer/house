@@ -14,6 +14,9 @@ export default createStore({
         pushToAddedHouseList(state, newHouse) {
             state.addedHouseList.push(newHouse);
         },
+        setHouseDetails(state, houseDetails) {
+            state.houseDetails = houseDetails;
+        },
     },
     plugins: [createPersistedState()],
     actions: {

@@ -18,7 +18,9 @@
                     }}</h2>
                     <p> {{ house.price }}</p>
                     <p> {{ house.postalcode || house.location.zip }} {{ house.city || house.location.city }}</p>
-                    <router-link :to="{ name: 'houseDetails', params: { id: house.id } }"> See tha house</router-link>
+                    <router-link :to="{ name: 'houseDetails', params: { id: house.id}, query: { source: 'added' }}"> See tha house</router-link>
+                    
+                    <!-- <router-link :to="{ name: 'houseDetails', params: { id: house.id } }"> See tha house</router-link> -->
                 </div>
             </div>
         </div>

@@ -1,23 +1,25 @@
 <template>
-    
-    <div v-if="houseList">
+    <div v-if="houseDetails">
+
         <h1>House Detail page </h1>
-        <p>{{ id }}</p>
-    
-        <div v-for="house in houseList">
-            <h2>{{ house.location.street }} {{ house.location.houseNumber }}</h2>
-            <p>tha price: {{ house.price }}</p>
-            <p>{{ house.location.zip }} {{ house.location.city }}</p>
-            <img :src=" house.image" alt="">
-            <p>{{ house.description }}</p>
-            <p> Bedrooms: {{ house.rooms.bedrooms }} Bathrooms: {{ house.rooms.bathrooms }}</p>
-            <p>Size: {{ house.size }}</p>
-            <p>Jaar: {{ house.constructionYear }}</p>
-            <p>Garage: {{ house.hasGarage }}</p>
-        </div>
+        <p>{{ houseDetails.id }}</p>
+
+        <h2>{{ houseDetails.streetname || houseDetails.street }} {{ houseDetails.housenumber || houseDetails.houseNumber
+        }}</h2>
+        <p>tha price: {{ houseDetails.price }}</p>
+        <p>{{ houseDetails.postalcode || houseDetails.zip }} {{ houseDetails.city || houseDetails.city }}</p>
+        <img :src="houseDetails.image" alt="">
+        <p>{{ houseDetails.description }}</p>
+        <p> Bedrooms: {{ houseDetails.bedrooms }} Bathrooms: {{ houseDetails.bathrooms }}</p>
+        <p>Size: {{ houseDetails.size }}</p>
+        <p>Jaar: {{ houseDetails.constructionYear }}</p>
+        <p>Garage: {{ houseDetails.hasGarage }}</p>
+
     </div>
-    
 </template>
+
+    
+
 
 
 <script>
@@ -36,31 +38,45 @@ var requestOptions = {
 export default {
     data() {
         return {
-            houseList: null,
+            houseDetails: null,
 
         }
     },
-    props: ['id'],
+    props: ['id', 'source'],
     methods: {
-        async getData(){
-            const res = await fetch("https://api.intern.d-tt.nl/api/houses/" + this.id, requestOptions)
-            const finalRes = await res.json();
-            this.houseList = finalRes
-            console.log(this.houseList)
-        }
+        async fetchHouseDetails() {
+            console.log('Source:', this.source);
+            console.log('ID:', this.id);
+
+            try {
+                if (this.source === 'added') {
+                    // Fetch details from addedHouseList
+                    const addedHouseList = store.state.addedHouseList;
+                    this.houseDetails = addedHouseList.find(house => house.id == this.id) || null;
+                } else {
+                    // Fetch details from the API using the house ID
+                    const res = await fetch(`https://api.intern.d-tt.nl/api/houses/${this.id}`, requestOptions);
+
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! Status: ${res.status}`);
+                    }
+
+                    this.houseDetails = await res.json();
+                }
+            } catch (error) {
+                console.error('Error fetching house details:', error);
+                this.houseDetails = null;
+            }
+        },
     },
     mounted() {
-      this.getData()
+        this.fetchHouseDetails();
     }
-
-
 }
-
 </script>
 
 <style scoped>
-    img{
-        width: 200px;
-    }
-
+img {
+    width: 200px;
+}
 </style>
