@@ -21,6 +21,8 @@
 
 
 <script>
+import { computed, ref, onMounted } from 'vue';
+import store from '../store';
 
 var myHeaders = new Headers();
 myHeaders.append("X-Api-Key", "3s8K-HjLw1vBgI2nelJFMWbcQ6upXDYm");
