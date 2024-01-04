@@ -14,10 +14,10 @@
             <div v-for="house in allHouses" :key="house.id" class="houseslist">
                 <img :src="house.image" alt="" :key="house.id">
                 <div>
-                    <h2> {{ house.street || house.streetname }} {{ house.houseNumber || house.housenumber
+                    <h2> {{ house.streetname || house.location.street }} {{ house.housenumber || house.location?.houseNumber
                     }}</h2>
                     <p> {{ house.price }}</p>
-                    <p> {{ house.zip || house.postalcode }} {{ house.city || house.city }}</p>
+                    <p> {{ house.postalcode || house.location.zip }} {{ house.city || house.location.city }}</p>
                     <router-link :to="{ name: 'houseDetails', params: { id: house.id } }"> See tha house</router-link>
                 </div>
             </div>
