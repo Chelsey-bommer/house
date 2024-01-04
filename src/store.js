@@ -21,6 +21,9 @@ export default createStore({
         clearAddedHouseList(state) {
             state.addedHouseList = [];
         },
+        removeFromAddedHouseList(state, houseId) {
+            state.addedHouseList = state.addedHouseList.filter(house => house.id !== houseId);
+        },
     },
     plugins: [createPersistedState()],
     actions: {

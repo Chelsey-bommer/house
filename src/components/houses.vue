@@ -11,15 +11,15 @@
         <input v-model="searchHouses" placeholder="Search by City">
         <button @click="clearSearch">X</button>
 
-        <div v-if="allHouses.length > 0"> <!-- check for results -->
-            <p>Houses found: {{ allHouses.length }}</p>
-            <div v-for="house in allHouses" :key="house.id" class="houseslist">
+        <div v-if="filteredAndSortedHouses.length > 0"> <!-- check for results -->
+            <p>Houses found: {{ filteredAndSortedHouses.length }}</p>
+            <div v-for="house in filteredAndSortedHouses" :key="house.id" class="houseslist">
                 <img :src="house.image" alt="" :key="house.id">
                 <div>
                     <h2> {{ house.streetname || house.location.street }} {{ house.housenumber || house.location?.houseNumber
                     }}</h2>
                     <p> {{ house.price }}</p>
-                    <p> {{ house.postalcode || house.location.zip }} {{ house.city || house.location.city }}</p>
+                    <p> {{ house.postalcode || house.location.zip }} {{ house.city || house.location?.city }}</p>
                     <router-link :to="getHouseDetailsLink(house)"> See tha house</router-link>
 
                     <!-- <router-link :to="{ name: 'houseDetails', params: { id: house.id } }"> See tha house</router-link> -->
@@ -64,9 +64,14 @@ export default {
         filteredAndSortedHouses() {
 
             // Filter houses based on the search criteria
-            const filteredHouses = this.houseList.filter(house =>
-                house.location.city.toLowerCase().includes(this.searchHouses.toLowerCase())
-            );
+            const filteredHouses = this.allHouses.filter(house => {
+            if (house.location && house.location.city) {
+                return house.location.city.toLowerCase().includes(this.searchHouses.toLowerCase());
+            } else if (house.city) {
+                // If location.city is undefined, check if house.city is defined
+                return house.city.toLowerCase().includes(this.searchHouses.toLowerCase());
+            }
+        });
 
             // Sort the filtered houses
             return filteredHouses.slice().sort((a, b) => {

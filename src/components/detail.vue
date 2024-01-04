@@ -2,29 +2,27 @@
     <div v-if="houseDetails">
         <h1>House Detail page </h1>
         <div v-if="this.source === 'added'">
-            <div>
-                <p>{{ houseDetails.id }}</p>
-                <h2>
-                    {{ houseDetails.streetname || houseDetails.location?.street }}
-                    {{ houseDetails.housenumber || houseDetails.location?.houseNumber }}
-                </h2>
-                <p>tha price: {{ houseDetails.price }}</p>
-                <p>{{ houseDetails.postalcode || houseDetails.location?.zip }} {{ houseDetails.city ||
-                    houseDetails.location?.city }}</p>
-                <img :src="houseDetails.image" alt="">
-                <p>{{ houseDetails.description }}</p>
-                <p> Bedrooms: {{ houseDetails.bedrooms || houseDetails.rooms?.bedrooms }} Bathrooms: {{
-                    houseDetails.bathrooms
-                    || houseDetails.rooms?.bathrooms }}</p>
-                <p>Size: {{ houseDetails.size }}</p>
-                <p>Jaar: {{ houseDetails.date || houseDetails.constructionYear }}</p>
-                <p>Garage: {{ houseDetails.hasGarage }}</p>
-            </div>
+
+            <h2>
+                {{ houseDetails.streetname || houseDetails.location?.street }}
+                {{ houseDetails.housenumber || houseDetails.location?.houseNumber }}
+            </h2>
+            <p>tha price: {{ houseDetails.price }}</p>
+            <p>{{ houseDetails.postalcode || houseDetails.location?.zip }} {{ houseDetails.city ||
+                houseDetails.location?.city }}</p>
+            <img :src="houseDetails.image" alt="">
+            <p>{{ houseDetails.description }}</p>
+            <p> Bedrooms: {{ houseDetails.bedrooms || houseDetails.rooms?.bedrooms }} Bathrooms: {{
+                houseDetails.bathrooms
+                || houseDetails.rooms?.bathrooms }}</p>
+            <p>Size: {{ houseDetails.size }}</p>
+            <p>Jaar: {{ houseDetails.date || houseDetails.constructionYear }}</p>
+            <p>Garage: {{ houseDetails.hasGarage }}</p>
+
+            <button @click="removeHouse">Remove this house</button>
         </div>
 
         <div v-else v-for="house in houseDetails" :key="house.id">
-
-            <p>{{ house.id }}</p>
 
             <h2>
                 {{ house.streetname || house.location?.street }}
@@ -99,6 +97,18 @@ export default {
             } catch (error) {
                 console.error('Error fetching house details:', error);
                 this.houseDetails = null;
+            }
+        },
+        removeHouse() {
+            console.log('Removing house...');
+            console.log('Source:', this.source);
+            console.log('ID:', this.id);
+            if (this.source === 'added') {
+                console.log('Before removal 2:', store.state.addedHouseList);
+                store.commit('removeFromAddedHouseList', this.id);
+                
+                console.log('After removal 2:', store.state.addedHouseList);
+                this.$router.push({ name: 'Houses' }); // Redirect to home or another appropriate route
             }
         },
     },
