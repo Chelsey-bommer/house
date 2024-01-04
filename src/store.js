@@ -17,6 +17,9 @@ export default createStore({
         setHouseDetails(state, houseDetails) {
             state.houseDetails = houseDetails;
         },
+        clearAddedHouseList(state) {
+            state.addedHouseList = [];
+        },
     },
     plugins: [createPersistedState()],
     actions: {
@@ -34,6 +37,9 @@ export default createStore({
           const newHouse = { id: newId, ...newHouseData };
           commit('pushToAddedHouseList', newHouse);
           return newHouse;
+        },
+        clearAddedHouseList({ commit }) {
+            commit('clearAddedHouseList');
         },
       },
     // other store configurations...

@@ -55,7 +55,7 @@ export default {
                     this.houseDetails = addedHouseList.find(house => house.id == this.id) || null;
                 } else {
                     // Fetch details from the API using the house ID
-                    const res = await fetch(`https://api.intern.d-tt.nl/api/houses/${this.id}`, requestOptions);
+                    const res = await fetch("https://api.intern.d-tt.nl/api/houses/" + this.id, requestOptions);
 
                     if (!res.ok) {
                         throw new Error(`HTTP error! Status: ${res.status}`);

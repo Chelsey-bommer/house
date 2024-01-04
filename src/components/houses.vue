@@ -6,6 +6,8 @@
         <button @click="sortHousesByPrice('asc')">Sort by Price ascending</button>
         <button @click="sortHousesByPrice('desc')">Sort by Price descending</button>
 
+        <!-- <button @click="clearAddedHouseList">Clear Added House List</button> -->
+
         <input v-model="searchHouses" placeholder="Search by City">
         <button @click="clearSearch">X</button>
 
@@ -76,11 +78,6 @@ export default {
             // Concatenate houseList and addedHouseList into a new array
             return [...this.houseList, ...store.state.addedHouseList];
         },
-
-        // addedHouseList() {
-        //     return store.state.addedHouseList;
-        // },
-
     },
     methods: {
         async getData() {
@@ -97,6 +94,9 @@ export default {
         clearSearch() {
             this.searchHouses = '';
         },
+        // clearAddedHouseList() {
+        //  this.$store.dispatch('clearAddedHouseList');
+        // },
 
 
     },
